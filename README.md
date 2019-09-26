@@ -19,7 +19,8 @@ The cells are formed with N x M grid, and can have only value of white or black.
 #### Folder 3 -> Numbrix
 ```
 A Numbrix puzzle consists of a NxM grid where cells have numbers between 1 and N*M.
-every cells should have different values, however, the two numbers x and x+1 should be placed adjacent to each other(, horizontally or vertically).
+Every cells should have different values.
+However, the two numbers x and x+1 should be placed adjacent to each other(, horizontally or vertically).
 ```
 
 #### Folder test
