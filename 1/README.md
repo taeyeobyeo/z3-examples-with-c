@@ -30,7 +30,7 @@ the last integer indicates value or an asterisk mark.
 3. ./a.out
 4. z3 formula > result
 5. gcc draw-LIA.c
-6. a.out
+6. ./a.out
 ```
 
 ### error if ~
