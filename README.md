@@ -1,6 +1,6 @@
-# z3-tryout
+# Z3-tryout
 
-### folder 1, 2, 3 each contains different puzzle solutions.
+### Folder 1, 2, 3 each contains different puzzle solutions.
 
 #### Folder 1 -> Sudoku*
 ```
