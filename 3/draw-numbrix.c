@@ -7,11 +7,11 @@ char buf[128];
 int main(){
     FILE *pre = fopen("preset","r");
     fscanf(pre, "%s ", buf); //n
-    int n = buf[0] - '0' + 2;
+    int n = atoi(buf) + 2;
     fscanf(pre, "%s\n", buf); //m
-    int m = buf[0] - '0' + 2;
+    int m = atoi(buf) + 2;
     fclose(pre);
-    // printf("%d%d\n",n,m);
+    // printf("%d %d\n",n,m);
     int** dp = (int**) malloc(sizeof(int*)*n);
     for(int i =0;i<n;i++){
         dp[i] = (int*) malloc(sizeof(int)*m);
@@ -34,10 +34,11 @@ int main(){
     while (!feof(fp)) {
         fscanf(fp, "%s", buf1); if(strcmp(buf1,")") == 0) break; 
         // printf("%s ",buf1);
-		fscanf(fp, "%s", buf2);
+		fscanf(fp, "%s", buf2); if(strcmp(buf2,")") == 0) break; 
         // printf("%s ",buf2);
-        x = buf2[1] - '0';
-        y = buf2[2] - '0';
+        // int len = strlen(buf2) - 1;
+        int x= buf2[1] - '0';
+        int y = buf2[2] - '0';
 		fscanf(fp, "%s", buf3); 
         // printf("%s ",buf3);
 		fscanf(fp, "%s", buf4); 
@@ -46,12 +47,12 @@ int main(){
         // printf("%s \n",buf5);
         // if(buf5[0] - '0' == 1) 
         dp[x][y] = atoi(buf5);
-        // printf("%d\n",buf5[0] - '0');
+        // printf("%d %d %d\n",x,y, atoi(buf5));
 	}
     fclose(fp);
     for(int i = 1;i<n-1;i++){
         for(int j = 1; j<m-1;j++){
-            printf("%2d ",dp[i][j]);
+            printf("%2d ", dp[i][j]);
         }
         printf("\n");
     }

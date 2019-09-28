@@ -6,6 +6,12 @@ This project is designed for Z3 solver on Linux/Unix Environment.
 
 ## How to Use
 
+#### warning
+
+```
+This program only supports maximum of 9x9 grid numbrix puzzle
+```
+
 ### to test out different variation change 'preset' file
 'preset' file should be written in following form:
 ```

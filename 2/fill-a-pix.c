@@ -36,7 +36,7 @@ int main(){
         int b = atoi(buf4);
         int c = atoi(buf5);
         // printf("%d %d %d\n",x,y,z);
-        if(1<=a&&a<=n&&1<=b&&b<=m&&0<=c&&c<=9)
+        if(1<=a&&a<n&&1<=b&&b<m&&0<=c&&c<=9)
             hint[a][b] = c;
 	}
     fclose(pre);

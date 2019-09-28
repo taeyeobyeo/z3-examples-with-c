@@ -3,7 +3,6 @@
 
 
 int main(){
-    
     char buf1[128];
     char buf2[128];
     char buf3[128];
@@ -11,9 +10,9 @@ int main(){
     char buf5[128];
     FILE *pre = fopen("preset","r");
     fscanf(pre, "%s ", buf1); //n
-    int n = atoi(buf1);
+    int n = atoi(buf1) + 2;
     fscanf(pre, "%s\n", buf2); //m
-    int m = atoi(buf2);
+    int m = atoi(buf2) + 2;
 
     //hint
     int** hint = (int**) malloc(sizeof(int*)*n);
