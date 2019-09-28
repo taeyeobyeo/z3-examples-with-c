@@ -12,38 +12,29 @@ This project is designed for Z3 solver on Linux/Unix Environment.
 This program only supports maximum of 9x9 grid numbrix puzzle
 ```
 
-### to test out different variation change 'preset' file
-'preset' file should be written in following form:
-```
-//start 
-6 6
-2 3 20
-2 4 13
-3 2 26
-3 5 9
-4 2 25
-...
-```
+### to test out different variation change 'input' file
+'input' file should be written in following form:
 
-The first line should contain 2 integers which will be N and M of NxM grids.
-There should be at least one space between two integers.
-
-Other line has to be written in 3 positive integers with space in between.
-The first digit represents the row number.
-The second digit represents the column number.
-The last digit represents the value of the cell.
+```
+? ? ? ? ? ?
+? ? 20 13 ? ?
+? 26 ? ? 9 ?
+? 25 ? ? 10 ?
+? ? 23 36 ? ?
+? ? ? ? ? ?
+```
+This example is 6x6 input file.
+Every cells in a row should be separated with a space character.
+the unknown cells should be written as '?'.
 
 ### quick commands
 ```
 1. gcc numbrix.c
-3. ./a.out
-4. z3 formula > result
-5. gcc draw-numbrox.c
-6. ./a.out
+2. ./a.out
 ```
 
 ### error if ~
 ```
-1. there is no preset file.
+1. there is no input file.
 2. Z3 is not installed.
 ```

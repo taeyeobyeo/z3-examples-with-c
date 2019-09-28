@@ -6,31 +6,28 @@ This project is designed for Z3 solver on Linux/Unix Environment.
 
 ## How to Use
 
-### to test out different variation change 'preset' file
-'preset' file should be written in following form:
+### to test out different variation change 'input' file
+'input' file should be written in following form:
 ```
-//start 
-122
-145
-16*
-156
-...
+? 2 ? 5 ? * ? 9 ?
+8 ? ? 2 ? 3 ? ? 6
+? 3 ? ? 6 ? * 7 ?
+* ? ? ? * ? 6 ? ?
+5 4 ? ? ? ? ? 1 9
+? ? 2 ? ? ? 7 ? ?
+? 9 * ? 3 ? ? 8 ?
+2 ? ? 8 ? 4 ? * 7
+? 1 ? 9 ? 7 ? 6 ?
 ```
 
-The first line should be filled with an comment. 
-Other lines are formed with 3 integers such as 122.
-first integer indicates the row #. 
-second integer indicates the column #. 
-the last integer indicates value or an asterisk mark. 
+Every cells should be separated with a space character.
+Unknown cells should be filled with a '?' character.
+The value of a cell is limited to ?, 0-9, or *.
 
 ### quick commands
 ```
-1. cd LIA
-2. gcc sudoku-LIA.c
-3. ./a.out
-4. z3 formula > result
-5. gcc draw-LIA.c
-6. ./a.out
+1. gcc sudoku-LIA.c
+2. ./a.out
 ```
 
 ### error if ~

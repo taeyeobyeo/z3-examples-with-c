@@ -3,68 +3,65 @@
 #include <string.h>
 
 int main(){
-    char buf1[128];
-    char buf2[128];
-    char buf3[128];
-    char buf4[128];
-    char buf5[128];
-    //preset
-    FILE * pre = fopen("preset", "r" );
-    fscanf(pre, "%s ", buf1); //n
-    int n = atoi(buf1) + 2;
-    fscanf(pre, "%s\n", buf2); //m
-    int m = atoi(buf2) + 2;
-    // printf("%d %d\n",n,m);
-    //hint
-    int** hint = (int**) malloc(sizeof(int*)*n);
-    for(int i =0;i<n;i++){
-        hint[i] = (int*) malloc(sizeof(int)*m);
-        for(int j = 0; j<m;j++) hint[i][j] = 0;
+    char buf[128];
+    FILE *in = fopen("input", "r");
+    int N = 0, M = 0; // represents N*M grid
+    fgets(buf,128,in);
+    int len = strlen(buf);
+    for(int i =0; i<len;i++){
+        if(buf[i]==' ')M++;
+    }M+=3;
+    rewind(in);
+    while(!feof(in)){
+        fgets(buf,128,in);
+        N++;
+    }N+=2;
+    // printf("\nN:%d M:%d\n",N,M);
+    int** hint = (int**) malloc(sizeof(int*)*N);
+    for(int i =0;i<N;i++){
+        hint[i] = (int*) malloc(sizeof(int)*M);
+        for(int j = 0; j<M;j++) hint[i][j] = 0;
     }
     //dp
-    int** dp = (int**) malloc(sizeof(int*)*n);
-    for(int i =0;i<n;i++){
-        dp[i] = (int*) malloc(sizeof(int)*m);
-        for(int j = 0; j<m;j++) dp[i][j] = 0;
+    int** dp = (int**) malloc(sizeof(int*)*N);
+    for(int i =0;i<N;i++){
+        dp[i] = (int*) malloc(sizeof(int)*M);
+        for(int j = 0; j<M;j++) dp[i][j] = 0;
     }
-
-    while (!feof(pre)) {
-        fscanf(pre, "%s", buf3);
-        fscanf(pre, "%s", buf4);
-        fscanf(pre, "%s", buf5);
-        int a = atoi(buf3);
-        int b = atoi(buf4);
-        int c = atoi(buf5);
-        // printf("%d %d %d\n",x,y,z);
-        if(1<=a&&a<n&&1<=b&&b<m&&0<=c&&c<=9)
-            hint[a][b] = c;
-	}
-    fclose(pre);
-
-	FILE * fp = fopen("formula", "w") ;
+    rewind(in);
+    for(int i =0;i<N-2;i++){
+        for(int j =0;j<M-2;j++){
+            fscanf(in,"%s", buf);
+            if(strcmp(buf,"?")!=0){
+                hint[i+1][j+1] = atoi(buf);
+            }
+        }
+    }
+    fclose(in);
+    FILE *fp = fopen("formula","w");
     
     //declare instance
-    for(int i =0; i<n;i++){
-        for(int j =0; j<m;j++){
+    for(int i =0; i<N;i++){
+        for(int j =0; j<M;j++){
             fprintf(fp,"(declare-const p%d%d Int)\n", i, j);
         }
     }
 
-    for(int i =0; i<n;i++)
-        for(int j =0; j<m;j++)
+    for(int i =0; i<N;i++)
+        for(int j =0; j<M;j++)
             fprintf(fp,"(assert (and (<= 0 p%d%d) (>= 1 p%d%d)))\n", i, j,i,j);
 
     //edge
-    for(int i =0; i<n;i++){
-        for(int j =0; j<m;j++){
-            if(i==0||i==n-1||j==0||j==m-1)
+    for(int i =0; i<N;i++){
+        for(int j =0; j<M;j++){
+            if(i==0||i==N-1||j==0||j==M-1)
                 fprintf(fp,"(assert (= p%d%d 0))\n",i,j);
         }
     }
 
     //assert
-    for(int i = 1; i< n-1;i++){
-        for (int j =1; j<m-1;j++){
+    for(int i = 1; i< N-1;i++){
+        for (int j =1; j<M-1;j++){
             if(hint[i][j]==0) continue;
             fprintf(fp,"(assert (= (+ ");
             for(int x = -1; x<2;x++){
@@ -78,5 +75,32 @@ int main(){
 
     fprintf(fp, "(check-sat)\n(get-model)\n") ;
     fclose(fp);
+
+    FILE *fin = popen("z3 formula", "r");
+    fscanf(fin, "%s\n %s", buf, buf);
+    while (!feof(fin)) {
+        fscanf(fin, "%s", buf); if(strcmp(buf,")") == 0) break; 
+        // printf("%s ",buf1);
+		fscanf(fin, "%s", buf);
+        // printf("%s ",buf2);
+        int x = buf[1] - '0';
+        int y = buf[2] - '0';
+		fscanf(fin, "%s", buf); 
+        // printf("%s ",buf3);
+		fscanf(fin, "%s", buf); 
+        // printf("%s ",buf4);
+		fscanf(fin, "%s", buf); 
+        // printf("%s \n",buf5);
+        if(buf[0] - '0' == 1) dp[x][y] = 1;
+        // printf("%d\n",buf5[0] - '0');
+	}
+    pclose(fin);
+    
+    for(int i = 1;i<N-1;i++){
+        for(int j = 1; j<M-1;j++){
+            printf("%d ",dp[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
 }
