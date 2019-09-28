@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char buf[128];
 
 int main(){
+    
+    char buf1[128];
+    char buf2[128];
+    char buf3[128];
+    char buf4[128];
+    char buf5[128];
     FILE *pre = fopen("preset","r");
-    fscanf(pre, "%s ", buf); //n
-    int n = buf[0] - '0' + 2;
-    fscanf(pre, "%s\n", buf); //m
-    int m = buf[0] - '0' + 2;
+    fscanf(pre, "%s ", buf1); //n
+    int n = atoi(buf1);
+    fscanf(pre, "%s\n", buf2); //m
+    int m = atoi(buf2);
 
     //hint
     int** hint = (int**) malloc(sizeof(int*)*n);
@@ -16,17 +21,14 @@ int main(){
         hint[i] = (int*) malloc(sizeof(int)*m);
         for(int j = 0; j<m;j++) hint[i][j] = 0;
     }
-    char buf1[128];
-    char buf2[128];
-    char buf3[128];
     while (!feof(pre)) {
-        fscanf(pre, "%s", buf1);
-        int a = atoi(buf1);
-        // printf("%d\n",a);
-        fscanf(pre, "%s", buf2);
-        int b = atoi(buf2);
         fscanf(pre, "%s", buf3);
-        int c = atoi(buf3);
+        int a = atoi(buf3);
+        // printf("%d\n",a);
+        fscanf(pre, "%s", buf4);
+        int b = atoi(buf4);
+        fscanf(pre, "%s", buf5);
+        int c = atoi(buf5);
         // printf("%d %d %d\n", a,b,c);
         hint[a][b] = c;
 	}

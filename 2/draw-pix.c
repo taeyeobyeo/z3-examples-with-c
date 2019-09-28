@@ -7,9 +7,9 @@ char buf[128];
 int main(){
     FILE *pre = fopen("preset","r");
     fscanf(pre, "%s ", buf); //n
-    int n = buf[0] - '0' + 2;
+    int n = atoi(buf) + 2;
     fscanf(pre, "%s\n", buf); //m
-    int m = buf[0] - '0' + 2;
+    int m = atoi(buf) + 2;
     fclose(pre);
     // printf("%d%d\n",n,m);
     int** dp = (int**) malloc(sizeof(int*)*n);

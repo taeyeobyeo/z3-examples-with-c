@@ -6,25 +6,25 @@ This project is designed for Z3 solver on Linux/Unix Environment.
 
 ## How to Use
 
-### to test out different variation change 'preset' file
+### to test out different variation, modify 'preset' file
 'preset' file should be written in following form:
 ```
 //start 
 5 6
-145
-164
-229
-328
+1 4 5
+1 6 4
+2 2 9
+3 2 8
 ...
 ```
 
 The first line should contain 2 integers which will be N and M of NxM grids.
 There should be at least one space between two integers.
 
-Othe numbers should be written in 3 digit numbers.
-The first digit represents the row number.
-The second digit represents the column number.
-The last digit represents the number of black cells around the cell and the cell itself.
+Other lines should be written with 3 different numbers.
+The first number should represent the row number.
+The second number should represent the column number.
+The last number should represent the number of black cells around the cell and the cell itself.
 
 ### quick commands
 ```

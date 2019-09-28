@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-char buf[128];
+#include <string.h>
 
 int main(){
+    char buf1[128];
+    char buf2[128];
+    char buf3[128];
+    char buf4[128];
+    char buf5[128];
     //preset
     FILE * pre = fopen("preset", "r" );
-    fscanf(pre, "%s ", buf); //n
-    int n = buf[0] - '0' + 2;
-    fscanf(pre, "%s\n", buf); //m
-    int m = buf[0] - '0' + 2;
-
+    fscanf(pre, "%s ", buf1); //n
+    int n = atoi(buf1) + 2;
+    fscanf(pre, "%s\n", buf2); //m
+    int m = atoi(buf2) + 2;
+    // printf("%d %d\n",n,m);
     //hint
     int** hint = (int**) malloc(sizeof(int*)*n);
     for(int i =0;i<n;i++){
@@ -25,11 +29,15 @@ int main(){
     }
 
     while (!feof(pre)) {
-        fscanf(pre, "%s", buf);
-        int x = buf[0] - '0';
-        int y = buf[1] - '0';
-        int z = buf[2] - '0';
-        hint[x][y] = z;
+        fscanf(pre, "%s", buf3);
+        fscanf(pre, "%s", buf4);
+        fscanf(pre, "%s", buf5);
+        int a = atoi(buf3);
+        int b = atoi(buf4);
+        int c = atoi(buf5);
+        // printf("%d %d %d\n",x,y,z);
+        if(1<=a&&a<=n&&1<=b&&b<=m&&0<=c&&c<=9)
+            hint[a][b] = c;
 	}
     fclose(pre);
 
