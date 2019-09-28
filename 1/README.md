@@ -6,7 +6,7 @@ This project is designed for Z3 solver on Linux/Unix Environment.
 
 ## How to Use
 
-### to test out different variation change 'input' file
+### 1. to test out different variation change 'input' file
 'input' file should be written in following form:
 ```
 ? 2 ? 5 ? * ? 9 ?
@@ -24,13 +24,13 @@ Every cells should be separated with a space character.
 Unknown cells should be filled with a '?' character.
 The value of a cell is limited to ?, 0-9, or *.
 
-### quick commands
+### 2. quick commands
 ```
 1. gcc sudoku-LIA.c
 2. ./a.out
 ```
 
-### error if ~
+### 3. error if ~
 ```
 1. there is no preset file.
 2. Z3 is not installed.
