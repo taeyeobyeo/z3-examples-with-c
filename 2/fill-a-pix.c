@@ -109,6 +109,7 @@ int main(){
 	}
     pclose(fin);
     FILE *out = fopen("output","w");
+    printf("\nA separte output file has been created\n\n");
     for(int i = 1;i<N-1;i++){
         for(int j = 1; j<M-1;j++){
             fprintf(out,"%d ",dp[i][j]);
@@ -116,7 +117,7 @@ int main(){
         }
         fprintf(out,"\n");
         printf("\n");
-    }
+    }printf("\n");
     fclose(out);
     return 0;
 }
