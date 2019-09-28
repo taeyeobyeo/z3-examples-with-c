@@ -108,12 +108,15 @@ int main(){
         // printf("%d\n",buf5[0] - '0');
 	}
     pclose(fin);
-    
+    FILE *out = fopen("output","w");
     for(int i = 1;i<N-1;i++){
         for(int j = 1; j<M-1;j++){
+            fprintf(out,"%d ",dp[i][j]);
             printf("%d ",dp[i][j]);
         }
+        fprintf(out,"\n");
         printf("\n");
     }
+    fclose(out);
     return 0;
 }

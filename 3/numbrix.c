@@ -31,8 +31,14 @@ int main(){
         }
     }
     fclose(in);
+    int nxm = (N-2)*(M-2), exp = 0;
 
-    
+    while(nxm>0){
+        nxm/=10;    //10000 1000 100 10 1
+        exp++;      //1 2 3 4 5
+    }
+    // printf("%d\n", exp);
+
     FILE *fp = fopen("formula","w");
     //declare instance
     for(int i =0; i<N;i++){
@@ -141,8 +147,27 @@ int main(){
     printf("\nA separate output file has been created\n\n");
     for(int i = 1;i<N-1;i++){
         for(int j = 1; j<M-1;j++){
-            fprintf(out,"%2d ", dp[i][j]);
-            printf("%2d ", dp[i][j]);
+            switch(exp){
+                case 2:
+                    fprintf(out,"%2d ", dp[i][j]);
+                    printf("%2d ", dp[i][j]);
+                    break;
+                case 3:
+                    fprintf(out,"%3d ", dp[i][j]);
+                    printf("%3d ", dp[i][j]);
+                    break;
+                case 4:
+                    fprintf(out,"%4d ", dp[i][j]);
+                    printf("%4d ", dp[i][j]);
+                    break;
+                case 5:
+                    fprintf(out,"%5d ", dp[i][j]);
+                    printf("%5d ", dp[i][j]);
+                    break;
+                default:
+                    fprintf(out,"%d ", dp[i][j]);
+                    printf("%d ", dp[i][j]);
+            }
         }
         fprintf(out,"\n");
         printf("\n");
