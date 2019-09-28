@@ -94,7 +94,12 @@ int main(){
 
     //print
     FILE * fin = popen("z3 formula", "r"); //FIXME
-	fscanf(fin, "%s %s", buf, buf);
+	fscanf(fin, "%s", buf);
+    if(strcmp(buf,"unsat")==1){
+        printf("No Solution\n");
+        return -1;
+    }
+    fscanf(fin, "%s", buf);
 	while (!feof(fin)) {
 		fscanf(fin, "%s", buf) ; if(strcmp(buf,")") == 0) break;
 		fscanf(fin, "%s", buf) ; 

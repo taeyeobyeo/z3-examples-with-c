@@ -43,19 +43,19 @@ int main(){
     //declare instance
     for(int i =0; i<N;i++){
         for(int j =0; j<M;j++){
-            fprintf(fp,"(declare-const p%d%d Int)\n", i, j);
+            fprintf(fp,"(declare-const p%d_%d Int)\n", i, j);
         }
     }
 
     for(int i =0; i<N;i++)
         for(int j =0; j<M;j++)
-            fprintf(fp,"(assert (and (<= 0 p%d%d) (>= 1 p%d%d)))\n", i, j,i,j);
+            fprintf(fp,"(assert (and (<= 0 p%d_%d) (>= 1 p%d_%d)))\n", i, j,i,j);
 
     //edge
     for(int i =0; i<N;i++){
         for(int j =0; j<M;j++){
             if(i==0||i==N-1||j==0||j==M-1)
-                fprintf(fp,"(assert (= p%d%d 0))\n",i,j);
+                fprintf(fp,"(assert (= p%d_%d 0))\n",i,j);
         }
     }
 
@@ -66,7 +66,7 @@ int main(){
             fprintf(fp,"(assert (= (+ ");
             for(int x = -1; x<2;x++){
                 for(int y = -1; y<2;y++){
-                    fprintf(fp,"p%d%d ", i+x,j+y);
+                    fprintf(fp,"p%d_%d ", i+x,j+y);
                 }
             }
             fprintf(fp,") %d))\n", hint[i][j]);
@@ -77,21 +77,34 @@ int main(){
     fclose(fp);
 
     FILE *fin = popen("z3 formula", "r");
-    fscanf(fin, "%s\n %s", buf, buf);
+    fscanf(fin, "%s", buf);
+    if(strcmp(buf,"unsat")==1){
+        printf("No Solution\n");
+        return -1;
+    }
+    fscanf(fin, "%s", buf);
     while (!feof(fin)) {
         fscanf(fin, "%s", buf); if(strcmp(buf,")") == 0) break; 
         // printf("%s ",buf1);
 		fscanf(fin, "%s", buf);
-        // printf("%s ",buf2);
-        int x = buf[1] - '0';
-        int y = buf[2] - '0';
+        // printf("%s ",buf);
+        int num[2] = {0,0}, idx = 0;
+        int len = strlen(buf);
+        for(int i = 1; i < len; i++){
+            // printf("%c\n", buf[i]);
+            if(buf[i]=='_') idx++;
+            else{
+                num[idx] = num[idx]*10 + buf[i] - '0';
+                // printf("%d\n",num[idx]);
+            }
+        }
 		fscanf(fin, "%s", buf); 
         // printf("%s ",buf3);
 		fscanf(fin, "%s", buf); 
         // printf("%s ",buf4);
 		fscanf(fin, "%s", buf); 
         // printf("%s \n",buf5);
-        if(buf[0] - '0' == 1) dp[x][y] = 1;
+        if(buf[0] - '0' == 1) dp[num[0]][num[1]] = 1;
         // printf("%d\n",buf5[0] - '0');
 	}
     pclose(fin);

@@ -37,26 +37,26 @@ int main(){
     //declare instance
     for(int i =0; i<N;i++){
         for(int j =0; j<M;j++){
-            fprintf(fp,"(declare-const p%d%d Int)\n", i, j);
+            fprintf(fp,"(declare-const p%d_%d Int)\n", i, j);
         }
     }
     
     //range
     for(int i =1; i<N-1;i++)
         for(int j =1; j<M-1;j++)
-            fprintf(fp,"(assert (and (<= 1 p%d%d) (>= %d p%d%d)))\n", i, j, (N-2)*(M-2), i,j);
+            fprintf(fp,"(assert (and (<= 1 p%d_%d) (>= %d p%d_%d)))\n", i, j, (N-2)*(M-2), i,j);
 
     //predefine
     for(int i = 1;i<N-1;i++){
         for(int j =1;j<M-1;j++){
-            if(hint[i][j]!=0) fprintf(fp,"(assert (= p%d%d %d))\n", i,j,hint[i][j]);
+            if(hint[i][j]!=0) fprintf(fp,"(assert (= p%d_%d %d))\n", i,j,hint[i][j]);
         }
     }
     //edge
     for(int i =0; i<N;i++){
         for(int j =0; j<M;j++){
             if(i==0||i==N-1||j==0||j==M-1)
-                fprintf(fp,"(assert (= p%d%d 0))\n",i,j);
+                fprintf(fp,"(assert (= p%d_%d 0))\n",i,j);
         }
     }
 
@@ -66,7 +66,7 @@ int main(){
             int x = i, y = j+1;
             for(;x<N-1;x++){
                 for(;y<M-1;y++){
-                    fprintf(fp,"(assert (not (= p%d%d p%d%d)))\n",i,j,x,y);
+                    fprintf(fp,"(assert (not (= p%d_%d p%d_%d)))\n",i,j,x,y);
                 }
                 y=1;
             }
@@ -76,22 +76,22 @@ int main(){
     //assert + 1
     for(int i = 1; i< N-1;i++){
         for (int j =1; j<M-1;j++){
-            fprintf(fp,"(assert (or (= p%d%d %d) ", i, j, (N-2)*(M-2));
-            fprintf(fp,"(= (+ p%d%d 1) p%d%d) ", i, j, i,j-1);
-            fprintf(fp,"(= (+ p%d%d 1) p%d%d) ", i, j, i-1, j);
-            fprintf(fp,"(= (+ p%d%d 1) p%d%d) ", i, j, i, j+1);
-            fprintf(fp,"(= (+ p%d%d 1) p%d%d) ", i, j, i+1,j);
+            fprintf(fp,"(assert (or (= p%d_%d %d) ", i, j, (N-2)*(M-2));
+            fprintf(fp,"(= (+ p%d_%d 1) p%d_%d) ", i, j, i,j-1);
+            fprintf(fp,"(= (+ p%d_%d 1) p%d_%d) ", i, j, i-1, j);
+            fprintf(fp,"(= (+ p%d_%d 1) p%d_%d) ", i, j, i, j+1);
+            fprintf(fp,"(= (+ p%d_%d 1) p%d_%d) ", i, j, i+1,j);
             fprintf(fp,"))\n");
         }
     }
 
     for(int i = 1; i< N-1;i++){
         for (int j =1; j<M-1;j++){
-            fprintf(fp,"(assert (or (= p%d%d 1) ", i, j);
-            fprintf(fp,"(= (- p%d%d 1) p%d%d) ", i, j, i,j-1);
-            fprintf(fp,"(= (- p%d%d 1) p%d%d) ", i, j, i-1, j);
-            fprintf(fp,"(= (- p%d%d 1) p%d%d) ", i, j, i, j+1);
-            fprintf(fp,"(= (- p%d%d 1) p%d%d) ", i, j, i+1,j);
+            fprintf(fp,"(assert (or (= p%d_%d 1) ", i, j);
+            fprintf(fp,"(= (- p%d_%d 1) p%d_%d) ", i, j, i,j-1);
+            fprintf(fp,"(= (- p%d_%d 1) p%d_%d) ", i, j, i-1, j);
+            fprintf(fp,"(= (- p%d_%d 1) p%d_%d) ", i, j, i, j+1);
+            fprintf(fp,"(= (- p%d_%d 1) p%d_%d) ", i, j, i+1,j);
             fprintf(fp,"))\n");
         }
     }
@@ -116,17 +116,24 @@ int main(){
 		fscanf(fp, "%s", buf); if(strcmp(buf,")") == 0) break; 
         // printf("%s ",buf2);
         // int len = strlen(buf2) - 1;
-        int x= buf[1] - '0';
-        int y = buf[2] - '0';
+        int num[2] = {0,0}, idx = 0;
+        int len = strlen(buf);
+        for(int i = 1; i < len; i++){
+            // printf("%c\n", buf[i]);
+            if(buf[i]=='_') idx++;
+            else{
+                num[idx] = num[idx]*10 + buf[i] - '0';
+                // printf("%d\n",num[idx]);
+            }
+        }
 		fscanf(fp, "%s", buf); 
         // printf("%s ",buf3);
 		fscanf(fp, "%s", buf); 
         // printf("%s ",buf4);
 		fscanf(fp, "%s", buf); 
-        // printf("%s \n",buf5);
-        // if(buf5[0] - '0' == 1) 
-        dp[x][y] = atoi(buf);
-        // printf("%d %d %d\n",x,y, atoi(buf5));
+        // printf("%s \n",buf);
+        dp[num[0]][num[1]] = atoi(buf);
+        // printf("%d %d %d\n",num[0],num[1], atoi(buf));
 	}
     pclose(fin);
 
