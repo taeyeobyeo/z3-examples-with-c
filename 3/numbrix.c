@@ -4,24 +4,32 @@
 
 int main(){
     char buf[128];
-    FILE *in = fopen("input", "r");
-    int N = 0, M = 0; // represents N*M grid
-    fgets(buf,128,in);
+    FILE *in = fopen("input", "w");
+    int N = 1, M = 0; // represents N*M grid
+    printf("To stop writing input write q\n");
+    gets(buf,128);
+    fprintf(in, "%s\n", buf);
     int len = strlen(buf);
     for(int i =0; i<len;i++){
         if(buf[i]==' ')M++;
     }M+=3;
-    rewind(in);
-    while(!feof(in)){
-        fgets(buf,128,in);
+
+    while(N>0){
+        gets(buf,128);
+        if(strcmp(buf,"q")==0) break;
+        fprintf(in,"%s\n",buf);
         N++;
-    }N+=2;
+    } N+=2;
+    // printf("%d %d\n",N,M);
+    fclose(in);
+    in = fopen("input","r");
+    
     int** hint = (int**) malloc(sizeof(int*)*N);
     for(int i =0;i<N;i++){
         hint[i] = (int*) malloc(sizeof(int)*M);
         for(int j = 0; j<M;j++) hint[i][j] = 0;
     }
-    rewind(in);
+    // rewind(in);
     for(int i =0; i<N-2;i++){
         for(int j =0; j<M-2;j++){
             fscanf(in,"%s",buf);
