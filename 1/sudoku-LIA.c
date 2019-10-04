@@ -14,39 +14,54 @@ int main(){
         for(int j =1; j<=9; j++)
             fprintf(fp,"(declare-const p%d%d Int)\n", i, j);
 
-    //preset
-    fprintf(fp,"; predefined\n");
-    FILE * in = fopen("input", "w" );
-    for(int i = 0; i<9;i++){
-        gets(buf,128);
-        fprintf(in,"%s\n",buf);
-    }
-    printf("\n\nLoading...\n\n");
-    fclose(in);
-    FILE * pre = fopen("input","r");
-
-    // for (int i = 0; i< 9; i++){
-    //     scanf("%c %c %c %c %c %c %c %c %c %c", &c[0],&c[1],&c[2],&c[3],&c[4],&c[5],&c[6],&c[7],&c[8], &c[9]);
-    //     for(int j =0; j<9;j++){
-    //         switch(c[j]){
-    //             case '?':
-    //             break;
-    //             case'*':
-    //                 a[ai][0] = i+1;
-    //                 a[ai][1] = j+1;
-    //                 ai++;
-    //             break;
-    //             default:
-    //             fprintf(fp,"(assert (= p%d%d %d))\n", i + 1, j + 1, c[j] - '0');
-    //         }
-    //         // printf("%d ", c[j] - '0');
-    //     }
-    //     // printf("\n");
+    // //preset
+    // fprintf(fp,"; predefined\n");
+    // FILE * in = fopen("input", "w" );
+    // for(int i = 0; i<9;i++){
+    //     gets(buf,128);
+    //     fprintf(in,"%s\n",buf);
     // }
+    // printf("\n\nLoading...\n\n");
+    // fclose(in);
+    // FILE * pre = fopen("input","r");
+
+    // // for (int i = 0; i< 9; i++){
+    // //     scanf("%c %c %c %c %c %c %c %c %c %c", &c[0],&c[1],&c[2],&c[3],&c[4],&c[5],&c[6],&c[7],&c[8], &c[9]);
+    // //     for(int j =0; j<9;j++){
+    // //         switch(c[j]){
+    // //             case '?':
+    // //             break;
+    // //             case'*':
+    // //                 a[ai][0] = i+1;
+    // //                 a[ai][1] = j+1;
+    // //                 ai++;
+    // //             break;
+    // //             default:
+    // //             fprintf(fp,"(assert (= p%d%d %d))\n", i + 1, j + 1, c[j] - '0');
+    // //         }
+    // //         // printf("%d ", c[j] - '0');
+    // //     }
+    // //     // printf("\n");
+    // // }
+
+    // for(int i = 1 ;i<=9;i++){
+    //     for(int j =1; j<=9;j++){
+    //         fscanf(pre,"%s",buf);
+    //         if(strcmp(buf,"*")==0){
+    //             a[ai][0]=i;
+    //             a[ai][1]=j;
+    //             ai++;
+    //         }
+    //         else if (strcmp(buf,"?")!=0){
+    //             fprintf(fp,"(assert (= p%d%d %d))\n", i, j, atoi(buf));
+    //         }
+    //     }
+    // }
+    // fclose(pre);
 
     for(int i = 1 ;i<=9;i++){
         for(int j =1; j<=9;j++){
-            fscanf(pre,"%s",buf);
+            scanf("%s",buf);
             if(strcmp(buf,"*")==0){
                 a[ai][0]=i;
                 a[ai][1]=j;
@@ -57,7 +72,6 @@ int main(){
             }
         }
     }
-    fclose(pre);
 
     //range
     for(int i =1; i<= 9; i++)
