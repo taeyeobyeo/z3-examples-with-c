@@ -29,8 +29,57 @@ For example:
 ```
 
 ### 2. Output
-If the input is satisfiable. it will give upmost 5 solutions.
-Other wise, the program will return regarding messages.
+
+If the input is satisfiable, it will produce such result as following:
+```
+Solution 1:
+
+1 1 1 0 0
+1 1 1 1 0
+1 1 1 1 1
+1 1 0 1 0
+1 1 1 1 0
+
+
+Solution 2:
+
+1 1 1 0 0
+1 1 1 1 1
+1 1 1 1 1
+1 1 0 1 0
+1 1 1 1 0
+
+
+Solution 3:
+
+1 1 1 1 0
+1 1 1 1 1
+1 1 1 1 1
+1 1 0 1 0
+1 1 1 1 0
+
+
+Solution 4:
+
+1 1 1 1 0
+1 1 1 1 0
+1 1 1 1 1
+1 1 0 1 0
+1 1 1 1 0
+
+
+Solution 5:
+
+1 1 1 0 1
+1 1 1 1 0
+1 1 1 1 1
+1 1 0 1 0
+1 1 1 1 0
+
+```
+
+Notice that there will be only one output produced.
+If the input is unsatisfactory, the program will give an message indicating unsatisfiability of the input.
 
 ### 3. quick commands
 ```
