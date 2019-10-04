@@ -22,6 +22,11 @@ Every cells should be separated with a space character.
 Unknown cells should be filled with '?'.
 
 This file can be run with the program only as an stdio input.
+For example:
+```
+./a.out < input
+./a.out < input3
+```
 
 ### 2. Output
 If the input is satisfiable. it will give upmost 5 solutions.
