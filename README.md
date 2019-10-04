@@ -2,6 +2,8 @@
 
 ### Folder 1, 2, 3 each contains different puzzle solutions.
 
+each folder contains samples of example files called input or input#.
+
 #### Folder 1 -> Sudoku*
 ```
 This project creates answer for sudoku with an additional rule.
